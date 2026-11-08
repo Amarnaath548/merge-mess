@@ -762,7 +762,7 @@ export class ModalManager {
     const itemsHtml = ACHIEVEMENTS.map(ach => {
       const isUnlocked = unlockedIds.has(ach.id);
       return `
-        <div style="background: ${isUnlocked ? '#fffbeb' : '#f8fafc'}; border: 1.5px solid ${isUnlocked ? '#f59e0b' : '#e2e8f0'}; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+        <div style="flex-shrink: 0; min-height: 64px; background: ${isUnlocked ? '#fffbeb' : '#f8fafc'}; border: 1.5px solid ${isUnlocked ? '#f59e0b' : '#e2e8f0'}; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
           <div style="display: flex; align-items: center; gap: 12px;">
             <div style="font-size: 28px; width: 36px; text-align: center; filter: ${isUnlocked ? 'none' : 'grayscale(1) opacity(0.6)'};">
               ${ach.icon}
@@ -775,7 +775,7 @@ export class ModalManager {
               <div style="font-size: 12px; color: #475569; margin-top: 2px;">${ach.description}</div>
             </div>
           </div>
-          <div style="text-align: right; min-width: 70px;">
+          <div style="text-align: right; min-width: 70px; flex-shrink: 0;">
             <span style="display: inline-block; background: ${isUnlocked ? '#fef3c7' : '#f1f5f9'}; color: ${isUnlocked ? '#b45309' : '#64748b'}; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 6px; margin-bottom: 4px;">
               +${ach.rewardCoins} 🪙
             </span>
@@ -837,26 +837,28 @@ export class ModalManager {
         const isUnlocked = unlockedTiers.includes(t.tier);
         if (isUnlocked) {
           return `
-            <div style="background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); position: relative; overflow: hidden;">
+            <div style="flex-shrink: 0; min-height: 104px; background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); position: relative;">
               <div style="display: flex; align-items: center; justify-content: space-between;">
-                ${t.iconSvg ? `<div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">${t.iconSvg}</div>` : `<span style="font-size: 28px;">${t.symbol}</span>`}
-                <span style="font-size: 11px; font-weight: 800; background: #fff7ed; color: #ea580c; padding: 2px 8px; border-radius: 12px;">Tier ${t.tier} (${t.value} pts)</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  ${t.iconSvg ? `<div style="width: 38px; height: 38px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">${t.iconSvg}</div>` : `<span style="font-size: 28px; width: 38px; text-align: center;">${t.symbol}</span>`}
+                  <div>
+                    <div style="font-size: 14px; font-weight: 800; color: #1e293b;">${t.name}</div>
+                    <div style="font-size: 12px; font-weight: 600; color: #ea580c;">${t.tamilName || ''}</div>
+                  </div>
+                </div>
+                <span style="font-size: 11px; font-weight: 800; background: #fff7ed; color: #ea580c; padding: 3px 8px; border-radius: 12px; border: 1px solid #fed7aa; flex-shrink: 0;">Tier ${t.tier} (${t.value} pts)</span>
               </div>
-              <div>
-                <div style="font-size: 14px; font-weight: 800; color: #1e293b;">${t.name}</div>
-                <div style="font-size: 12px; font-weight: 600; color: #ea580c;">${t.tamilName || ''}</div>
-              </div>
-              <div style="background: #f8fafc; border-left: 3px solid #ea580c; padding: 6px 8px; border-radius: 4px; font-size: 11.5px; color: #475569; line-height: 1.4; margin-top: 4px;">
+              <div style="background: #f8fafc; border-left: 3px solid #ea580c; padding: 8px 10px; border-radius: 4px; font-size: 12px; color: #475569; line-height: 1.45;">
                 💡 <em>${t.funFact || 'A delightful dish in the culinary journey!'}</em>
               </div>
             </div>
           `;
         } else {
           return `
-            <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 100px; opacity: 0.75;">
+            <div style="flex-shrink: 0; min-height: 90px; background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0.75;">
               <span style="font-size: 24px; filter: grayscale(1); margin-bottom: 4px;">🔒</span>
-              <div style="font-size: 12px; font-weight: 800; color: #64748b;">Tier ${t.tier} Mystery Recipe</div>
-              <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Merge to Tier ${t.tier} to discover recipe lore!</div>
+              <div style="font-size: 13px; font-weight: 800; color: #64748b;">Tier ${t.tier} Mystery Recipe</div>
+              <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Merge to Tier ${t.tier} in-game to discover recipe lore!</div>
             </div>
           `;
         }
@@ -889,7 +891,7 @@ export class ModalManager {
               <span style="color: #ea580c;">${unlockedCount} / ${totalTiers} (${pct}%)</span>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 4px;">
+            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 6px; -webkit-overflow-scrolling: touch;">
               ${cardsHtml}
             </div>
 
